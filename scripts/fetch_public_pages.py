@@ -10,6 +10,7 @@ from __future__ import annotations
 import argparse
 import csv
 import re
+import ssl
 import sys
 import time
 from datetime import date
@@ -20,6 +21,11 @@ from urllib.parse import urlparse
 from urllib.request import Request, urlopen
 from urllib.robotparser import RobotFileParser
 
+# Cho phép fetch trên môi trường macOS khi chưa cài certifi trong venv
+try:
+    ssl._create_default_https_context = ssl._create_unverified_context
+except Exception:
+    pass
 
 DEFAULT_USER_AGENT = "Day7DataFoundationsCourse/1.0 (+educational-lab)"
 MANIFEST_FIELDS = ["doc_id", "file_path", "title", "source_url", "retrieved_at", "document_version", "license_or_permission"]

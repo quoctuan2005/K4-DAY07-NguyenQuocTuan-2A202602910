@@ -1,0 +1,67 @@
+=== Benchmark CP5 ===
+Corpus dir     : data/university
+Gold set       : benchmark_gold_set.json
+Chunker        : HeadingChunker(max_chars=1200)
+Files loaded   : 10
+Chunks loaded  : 37
+
+========================================================================================
+Q1: Mức học bổng khuyến khích học tập kì cuối cho sinh viên loại Xuất sắc ngành CLC CNTT khóa QH-2022 là bao nhiêu?
+Gold doc : cap-hoc-bong-khuyen-khich-hoc-tap-ki-cuoi-thang-06-2026
+Gold ans : 4.100.000 đồng/sinh viên/tháng (theo Quyết định số 1545/QĐ-ĐHCN).
+Filter   : {'audience': 'student'}
+Top-3:
+  1. score=0.506 doc_id=cap-hoc-bong-khuyen-khich-hoc-tap-ki-cuoi-thang-06-2026 chunk=1 audience=student
+     # Cấp học bổng khuyến khích học tập kì cuối cho sinh viên tốt nghiệp đợt xét tháng 06 năm 2026 Căn cứ Kết quả họp Hội đồng Thi đua Khen thưởng và Kỷ luật sinh viên Trường Đại học Công nghệ họp ngày 10 tháng 7 năm 2026 (b
+  2. score=0.251 doc_id=cap-hoc-bong-khuyen-khich-hoc-tap-ki-cuoi-thang-06-2026 chunk=0 audience=student
+     # Cấp học bổng khuyến khích học tập kì cuối cho sinh viên tốt nghiệp đợt xét tháng 06 năm 2026 Cấp học bổng khuyến khích học tập kì cuối cho sinh viên tốt nghiệp đợt xét tháng 06 năm 2026 - Trường Đại học Công Nghệ - Đại
+  3. score=0.195 doc_id=chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027 chunk=0 audience=student
+     # Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sinh viên năm cuối có hoàn cảnh đặc biệt Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sin
+========================================================================================
+Q2: Mỗi suất học bổng Vallet năm 2026 dành cho sinh viên Trường ĐHCN trị giá bao nhiêu và lễ trao học bổng diễn ra ở đâu?
+Gold doc : ket-qua-xet-chon-hoc-bong-vallet-2026
+Gold ans : Trị giá 34.000.000 đồng; tổ chức tại Hội trường Nhà Thái Học, Văn Miếu – Quốc Tử Giám (58 Quốc Tử Giám, Hà Nội) lúc 07h30 ngày 23/08/2026.
+Filter   : None
+Top-3:
+  1. score=0.346 doc_id=ket-qua-xet-chon-hoc-bong-vallet-2026 chunk=0 audience=student
+     # Kết quả xét chọn học bổng Vallet dành cho sinh viên Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội năm 2026 Kết quả xét chọn học bổng Vallet dành cho sinh viên Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội năm 2
+  2. score=0.220 doc_id=chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027 chunk=1 audience=student
+     # Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sinh viên năm cuối có hoàn cảnh đặc biệt – Có hoàn cảnh kinh tế khó khăn và cần được hỗ trợ tài chính để tiếp tục việc học. Sinh vi
+  3. score=0.207 doc_id=chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027 chunk=0 audience=student
+     # Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sinh viên năm cuối có hoàn cảnh đặc biệt Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sin
+========================================================================================
+Q3: Sinh viên cần đáp ứng những tiêu chuẩn gì về GPA, rèn luyện và ngoại ngữ để được xét chọn Học bổng Tài năng Pegatron 2027?
+Gold doc : chuong-trinh-hoc-bong-tai-nang-pegatron-2027
+Gold ans : GPA năm học 2025-2026 từ 2.8 trở lên, kết quả rèn luyện loại Tốt trở lên, có khả năng dùng tiếng Anh/tiếng Trung và phải hoàn thành chứng chỉ tiếng Trung HSK3 trước khi thực tập tại công ty.
+Filter   : None
+Top-3:
+  1. score=0.250 doc_id=chuong-trinh-hoc-bong-tai-nang-pegatron-2027 chunk=0 audience=student
+     # Chương trình Học bổng Tài năng Pegatron 2027 Chương trình Học bổng Tài năng Pegatron 2027 - Trường Đại học Công Nghệ - Đại học Quốc Gia Hà Nội Bỏ qua đến nội dung chính Trở lại Học phí, học bổng Trang chủ Sinh viên Học
+  2. score=0.183 doc_id=quy-dinh-xet-cap-hoc-bong-khuyen-khich-hoc-tap chunk=3 audience=staff
+     # Quy định về việc xét, cấp học bổng khuyến khích học tập tại Trường Đại học Công nghệ Chương trình Học bổng Tài năng Pegatron 2027 Căn cứ Công văn số PVN-26830 ngày 25 tháng 8 năm 2026 của Công ty TNHH Pegatron Việt Nam
+  3. score=0.170 doc_id=dieu-chinh-doi-tuong-hoc-bong-data-nest-2026-2027 chunk=1 audience=student
+     # Điều chỉnh đối tượng xét học bổng Data Nest năm học 2026-2027 – Sinh viên có tinh thần trách nhiệm với cộng đồng, chủ động và tích cực tham gia các hoạt động như: Hoạt động ngoại khóa; Nghiên cứu khoa học; Hoạt động tì
+========================================================================================
+Q4: Hồ sơ đăng ký học bổng Đinh Thiện Lý dành cho sinh viên năm cuối gồm những giấy tờ gì và hạn nộp là khi nào?
+Gold doc : chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027
+Gold ans : Đơn đăng ký online; bảng điểm tích lũy có xác nhận; bài luận tiếng Anh tối đa 500 từ; 1 thư giới thiệu; minh chứng NCKH/ngoại khóa; video giới thiệu <=3 phút; giấy tờ khó khăn (nếu có). Hạn trước 16h30 ngày 21/7/2026.
+Filter   : None
+Top-3:
+  1. score=0.390 doc_id=chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027 chunk=3 audience=student
+     # Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sinh viên năm cuối có hoàn cảnh đặc biệt – Đăng ký online theo yêu cầu của Phòng Công tác sinh viên tại địa chỉ https://forms.gle/R
+  2. score=0.374 doc_id=hoc-bong-data-nest-nam-hoc-2026-2027 chunk=2 audience=student
+     # Học bổng Data Nest, năm học 2026-2027 Tất cả các giấy tờ trên yêu cầu sinh viên xếp theo thứ tự, đựng trong túi hồ sơ riêng có kích thước 25cm x 34 cm, mặt ngoài túi hồ sơ ghi đầy đủ các thông tin (Đăng ký học bổng Dat
+  3. score=0.322 doc_id=chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027 chunk=0 audience=student
+     # Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sinh viên năm cuối có hoàn cảnh đặc biệt Chương trình học bổng Đinh Thiện Lý năm học 2026 - 2027 dành cho sinh viên năm cuối và sin
+========================================================================================
+Q5: Chương trình học bổng Goertek năm 2027 gồm những mô hình đào tạo nào và quyền lợi của từng mô hình là gì?
+Gold doc : chuong-trinh-hoc-bong-goertek-nam-2027
+Gold ans : Gồm 2 mô hình: 1) Đào tạo tại VN: học bổng 60 triệu đồng, gói 21.000.000đ/SV trả 2 lần, thực tập tại Goertek Vina; 2) Đào tạo tại TQ: học bổng 80 triệu đồng, học tại ĐH Sơn Đông, miễn học phí, KTX, vé máy bay khứ hồi, gói 25.000.000đ/SV trả 2 lần.
+Filter   : None
+Top-3:
+  1. score=0.304 doc_id=chuong-trinh-hoc-bong-goertek-nam-2027 chunk=0 audience=student
+     # Chương trình học bổng Goertek năm 2027 Chương trình học bổng Goertek năm 2027 - Trường Đại học Công Nghệ - Đại học Quốc Gia Hà Nội Bỏ qua đến nội dung chính Trở lại Học phí, học bổng Trang chủ Sinh viên Học phí, học bổ
+  2. score=0.222 doc_id=chuong-trinh-hoc-bong-goertek-nam-2027 chunk=1 audience=student
+     # Chương trình học bổng Goertek năm 2027 Mô hình đào tạo tại Trung Quốc – học bổng 80 triệu đồng: dự kiến 20 sinh viên; GPA từ 2,5 trở lên và không nợ môn tính đến thời điểm phỏng vấn giai đoạn 1. Sinh viên có giai đoạn 
+  3. score=0.155 doc_id=quy-dinh-xet-cap-hoc-bong-khuyen-khich-hoc-tap chunk=2 audience=staff
+     # Quy định về việc xét, cấp học bổng khuyến khích học tập tại Trường Đại học Công nghệ Hội thảo “Phát triển mô hình đại học tinh hoa, đại học xuất sắc tại Việt Nam trong bối cảnh thực hiện Nghị quyết số 71-NQ/TW, Chiến l
