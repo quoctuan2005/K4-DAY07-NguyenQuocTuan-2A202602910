@@ -1,8 +1,8 @@
 # Báo Cáo Cá Nhân — Lab 7: Embedding & Vector Store
 
-**Họ tên:** Nguyễn Quốc Tuấn
-**Nhóm:** Nhóm 16
-**Ngày:** 19/9/2026
+**Họ tên:** Nguyễn Quốc Tuấn (MSSV: 2A202602910)
+**Nhóm:** G16
+**Ngày:** 19/09/2026
 
 > **Nộp 1 bản / sinh viên.** Phần nhóm (lựa chọn tài liệu, thiết kế chiến lược, bộ câu hỏi đánh giá, demo) nộp chung 1 bản trong `REPORT_NHOM.md`. Chi tiết thang điểm: `docs/SCORING.md`.
 
@@ -54,7 +54,7 @@ Giải thích cách tiếp cận của bạn khi lập trình (implement) các p
 Tôi strip văn bản đầu vào, trả về `[]` nếu text rỗng, rồi dùng regex `(?<=[.!?])\s+` để tách tại khoảng trắng sau dấu câu nhưng vẫn giữ dấu câu trong từng sentence. Sau đó tôi gom tối đa `max_sentences_per_chunk` câu vào mỗi chunk và strip khoảng trắng thừa. Edge case còn hạn chế là các chữ viết tắt như `TS.`, `v.v.` hoặc số thập phân có thể bị hiểu nhầm là ranh giới câu.
 
 **`RecursiveChunker.chunk` / `_split`** — hướng tiếp cận:
-Tôi tách văn bản theo thứ tự separator từ lớn đến nhỏ: đoạn trắng, xuống dòng, câu, khoảng trắng, rồi ký tự. Nếu một mảnh vẫn dài hơn `chunk_size`, hàm `_split` gọi đệ quy với danh sách separator còn lại; sau đó các mảnh nhỏ được gom lại để chunk không bị vụn. Base case là text rỗng, text đã ngắn hơn `chunk_size`, không còn separator, hoặc separator cuối là chuỗi rỗng thì cắt cứng theo `chunk_size`.
+Tôi tách văn bản theo thứ tự separator từ lớn đến nhỏ: đoạn trắng (`\n\n`), xuống dòng (`\n`), câu (`. `), khoảng trắng, rồi ký tự. Nếu một mảnh vẫn dài hơn `chunk_size`, hàm `_split` gọi đệ quy với danh sách separator còn lại; sau đó các mảnh nhỏ được gom lại để chunk không bị vụn. Base case là text rỗng, text đã ngắn hơn `chunk_size`, không còn separator, hoặc separator cuối là chuỗi rỗng thì cắt cứng theo `chunk_size`. Trong phân công nhóm G16, tôi cùng thành viên nhóm phụ trách kiểm thử chuyên sâu chiến lược `RecursiveChunker (chunk_size=300)` để so sánh đối chứng với các chiến lược khác.
 
 ### Lớp EmbeddingStore
 
@@ -154,18 +154,21 @@ Kết quả bất ngờ nhất là ở **Cặp 5**: về mặt ngữ nghĩa logi
 
 Chạy **5 câu hỏi đánh giá của nhóm** trên mã nguồn cá nhân của bạn trong gói `src`. **5 câu hỏi này phải trùng với các thành viên cùng nhóm** (xem `REPORT_NHOM.md`).
 
+> Trong nhóm G16, tôi (Thành viên 2) cùng bạn Trần Thu Phương phụ trách thử nghiệm chiến lược **`RecursiveChunker (chunk_size=300)`**. Dưới đây là kết quả truy xuất thực tế trên tập 10 tài liệu học bổng UET:
+
 | # | Câu hỏi (Query) | Top-1 Chunk truy xuất được (tóm tắt) | Điểm Score | Có liên quan không? (Relevant) | Câu trả lời của Agent (tóm tắt) |
 |---|-------|--------------------------------|-------|-----------|------------------------|
-| 1 | Mức học bổng khuyến khích học tập kì cuối cho sinh viên loại Xuất sắc ngành CLC CNTT khóa QH-2022 là bao nhiêu? | `cap-hoc-bong-khuyen-khich-hoc-tap-ki-cuoi-thang-06-2026#1`: Căn cứ Quyết định 1545/QĐ-ĐHCN, mức học bổng KKHT loại Xuất sắc ngành CLC CNTT khóa QH-2022 là 4.100.000 đồng/sinh viên/tháng. | 0.506 | Có | Mức học bổng khuyến khích học tập loại Xuất sắc ngành CLC CNTT khóa QH-2022 là 4.100.000 đồng/sinh viên/tháng (theo Quyết định số 1545/QĐ-ĐHCN). |
-| 2 | Mỗi suất học bổng Vallet năm 2026 dành cho sinh viên Trường ĐHCN trị giá bao nhiêu và lễ trao học bổng diễn ra ở đâu? | `ket-qua-xet-chon-hoc-bong-vallet-2026#0`: Thông báo kết quả học bổng Vallet 2026 trị giá 34.000.000 đồng/suất, lễ trao diễn ra lúc 07h30 ngày 23/08/2026 tại Hội trường Nhà Thái Học, Văn Miếu – Quốc Tử Giám. | 0.346 | Có | Mỗi suất học bổng Vallet trị giá 34.000.000 đồng; lễ trao học bổng được tổ chức tại Hội trường Nhà Thái Học, Văn Miếu – Quốc Tử Giám lúc 07h30 ngày 23/08/2026. |
-| 3 | Sinh viên cần đáp ứng những tiêu chuẩn gì về GPA, rèn luyện và ngoại ngữ để được xét chọn Học bổng Tài năng Pegatron 2027? | `chuong-trinh-hoc-bong-tai-nang-pegatron-2027#0`: Điều kiện xét học bổng Pegatron 2027 gồm GPA năm 2025-2026 từ 2.8 trở lên, kết quả rèn luyện loại Tốt trở lên, có khả năng tiếng Anh/Trung, hoàn thành chứng chỉ tiếng Trung HSK3. | 0.250 | Có | Sinh viên cần GPA năm học 2025-2026 từ 2.8 trở lên, rèn luyện loại Tốt trở lên, có khả năng sử dụng tiếng Anh/Trung và hoàn thành chứng chỉ tiếng Trung HSK3 trước khi thực tập. |
-| 4 | Hồ sơ đăng ký học bổng Đinh Thiện Lý dành cho sinh viên năm cuối gồm những giấy tờ gì và hạn nộp là khi nào? | `chuong-trinh-hoc-bong-dinh-thien-ly-nam-cuoi-2026-2027#3`: Hồ sơ gồm đơn online, bảng điểm tích lũy, bài luận tiếng Anh <=500 từ, thư giới thiệu, minh chứng, video <=3 phút. Hạn trước 16h30 ngày 21/7/2026. | 0.390 | Có | Hồ sơ gồm đơn đăng ký online, bảng điểm xác nhận, bài luận tiếng Anh <=500 từ, 1 thư giới thiệu, minh chứng ngoại khóa, video <=3 phút; hạn nộp trước 16h30 ngày 21/7/2026. |
-| 5 | Chương trình học bổng Goertek năm 2027 gồm những mô hình đào tạo nào và quyền lợi của từng mô hình là gì? | `chuong-trinh-hoc-bong-goertek-nam-2027#0`: Gồm mô hình đào tạo tại VN (học bổng 60 triệu, gói 21.000.000đ trả 2 lần) và đào tạo tại TQ (học bổng 80 triệu, học ĐH Sơn Đông, miễn học phí, KTX, vé máy bay, gói 25 triệu). | 0.304 | Có | Chương trình gồm 2 mô hình: 1) Đào tạo tại VN: học bổng 60 triệu đồng, hỗ trợ 21 triệu trả 2 lần; 2) Đào tạo tại TQ: học bổng 80 triệu đồng, học tại ĐH Sơn Đông, miễn học phí, KTX, vé máy bay khứ hồi. |
+| 1 | Mức học bổng khuyến khích học tập kì cuối cho sinh viên loại Xuất sắc ngành CLC CNTT khóa QH-2022 là bao nhiêu? *(Yêu cầu filter: audience=student)* | `cap-hoc-bong-khuyen-khich-hoc-tap-ki-cuoi#9`: Bảng định mức học bổng/tháng cho các ngành chuẩn và CLC khóa QH-2022 (chứa mức 4.100.000đ cho Xuất sắc). | 0.476 | Có | Mức học bổng khuyến khích học tập kì cuối loại Xuất sắc ngành CLC CNTT khóa QH-2022 là 4.100.000 đồng/sinh viên/tháng (theo Quyết định số 1545/QĐ-ĐHCN). |
+| 2 | Mỗi suất học bổng Vallet năm 2026 dành cho sinh viên Trường ĐHCN trị giá bao nhiêu và lễ trao học bổng diễn ra ở đâu? | `ket-qua-xet-chon-hoc-bong-vallet-2026#3`: Thông báo số lượng 10 suất học bổng dành cho sinh viên đại học (thông tin 34 triệu và Nhà Thái Học nằm ở chunk #5 liền kề). | 0.332 | Có (một phần) | Học bổng Vallet cấp 10 suất; tuy nhiên do chunk nhỏ (300 ký tự), chi tiết giá trị 34.000.000 đồng và địa điểm Nhà Thái Học nằm ở chunk kế tiếp trong Top-3. |
+| 3 | Sinh viên cần đáp ứng những tiêu chuẩn gì về GPA, rèn luyện và ngoại ngữ để được xét chọn Học bổng Tài năng Pegatron 2027? | `chuong-trinh-hoc-bong-tai-nang-pegatron-2027#2`: Mục 1 - Đối tượng và tiêu chuẩn xét chọn: GPA 2025-2026 >= 2.8, rèn luyện Tốt, ngoại ngữ tiếng Anh/Trung, chứng chỉ HSK3. | 0.278 | Có | Tiêu chuẩn xét chọn: GPA năm học 2025-2026 từ 2.8 trở lên, kết quả rèn luyện loại Tốt trở lên, có khả năng dùng ngoại ngữ và hoàn thành chứng chỉ tiếng Trung HSK3. |
+| 4 | Hồ sơ đăng ký học bổng Đinh Thiện Lý dành cho sinh viên năm cuối gồm những giấy tờ gì và hạn nộp là khi nào? | `hoc-bong-data-nest-nam-hoc-2026-2027#14`: Thời hạn cuối đăng ký và nộp hồ sơ trước 15h30 ngày 17/09/2026 (bị nhầm sang học bổng Data Nest do từ khóa hồ sơ lấn át; văn bản Đinh Thiện Lý xếp thứ 3). | 0.378 | Không (Top-1 sai tài liệu) | Do chunk Top-1 bị nhầm tài liệu nên Agent trả lời sai hạn nộp thành của Data Nest (17/09/2026 thay vì 21/7/2026). Đây là failure case điển hình của việc cắt nhỏ không kèm tiêu đề mẹ. |
+| 5 | Chương trình học bổng Goertek năm 2027 gồm những mô hình đào tạo nào và quyền lợi của từng mô hình là gì? | `chuong-trinh-hoc-bong-goertek-nam-2027#3`: Gồm 02 mô hình: Mô hình đào tạo tại Việt Nam (học bổng 60 triệu) và đào tạo tại Trung Quốc (học bổng 80 triệu, học tại ĐH Sơn Đông). | 0.381 | Có | Gồm 2 mô hình: 1) Đào tạo tại VN: học bổng 60 triệu đồng, hỗ trợ 21 triệu trả 2 lần; 2) Đào tạo tại TQ: học bổng 80 triệu đồng, học tại ĐH Sơn Đông, miễn học phí, KTX, vé máy bay. |
 
-**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** 5 / 5 (100% câu hỏi đều có chunk chứa đúng thông tin trả lời ở vị trí Top-1).
+**Bao nhiêu câu hỏi trả về chunk có liên quan trong top-3?** 5 / 5 câu đều có tài liệu liên quan trong top-3 (tuy nhiên ở vị trí Top-1, chiến lược đạt 3–4/5 câu do Câu 4 bị trôi xuống hạng 3).
 
 **Điều hay nhất tôi học được từ thành viên khác / nhóm khác (qua demo):**
-Qua quá trình chạy đối sánh và demo, tôi nhận thấy chiến lược `HeadingChunker` kết hợp `RecursiveChunker` của tôi phát huy tối đa ưu thế trên dữ liệu văn bản hành chính/quy định nhờ giữ nguyên tiêu đề mục cha kèm nội dung bảng số liệu. So với `FixedSizeChunker` hay cắt vụn văn bản ở ranh giới ký tự ngẫu nhiên khiến câu trả lời bị cụt, `HeadingChunker` duy trì tính toàn vẹn ngữ cảnh rất cao. Ngoài ra, việc kết hợp metadata pre-filter (`audience: student`) là chìa khóa để triệt tiêu hoàn toàn các văn bản nội bộ dành cho cán bộ/giảng viên lọt vào kết quả của sinh viên.
+Trong buổi đối sánh và demo của nhóm G16, tôi đại diện thử nghiệm chiến lược **`RecursiveChunker (chunk_size=300)`**. Điểm yếu lớn nhất mà tôi nhận ra ở chiến lược của mình là việc cắt nhỏ văn bản thành 158 chunk khiến các đoạn văn bản nằm ở giữa/cuối (như mục hồ sơ giấy tờ ở Câu hỏi 4) bị mất đi ngữ cảnh tiêu đề nhận diện của tài liệu mẹ, dẫn tới việc một tài liệu khác (`hoc-bong-data-nest`) có mật độ từ khóa 'hồ sơ' dày hơn đã cướp mất vị trí Top-1.
+Điều hay nhất tôi học được từ chiến lược **`SentenceChunker (max_sentences_per_chunk=3)`** của bạn Đào Đức Anh (chiến lược đạt điểm tuyệt đối 10/10 của nhóm) là: đối với thể loại văn bản hành chính quy định học bổng, việc gom nhóm theo 3 câu hoàn chỉnh giữ nguyên vẹn được mối quan hệ ngữ pháp giữa chủ thể (tên học bổng) và điều kiện/thuộc tính (GPA, mức tiền, hạn nộp). Hơn nữa, việc chỉ tạo ra đúng 40 chunk vừa vặn (thay vì 158 chunk vụn) giúp Vector Store gọn gàng hơn nhiều và giảm thiểu triệt để hiện tượng xung đột ngữ nghĩa (semantic collision) từ các phần boilerplate/chân trang web.
 
 ---
 
